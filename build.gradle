@@ -1,0 +1,29 @@
+plugins {
+//  id 'net.researchgate.release' version '2.4.0'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+//apply from: "dependencies.gradle"
+
+allprojects {
+//  apply plugin: 'maven'
+    // see http://issues.gradle.org/browse/GRADLE-2812
+    // noinspection GroovyAssignabilityCheck
+//  configurations.all {
+//    resolutionStrategy {
+//      force libs.xml_apis
+//    }
+//  }
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    repositories {
+        mavenCentral()
+    }
+}

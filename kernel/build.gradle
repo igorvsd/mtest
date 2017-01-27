@@ -1,0 +1,6 @@
+description = 'kernel module'
+
+dependencies {
+    compile project(':data')
+    testCompile 'junit:junit:4.12'
+}

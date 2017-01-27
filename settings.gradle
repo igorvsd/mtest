@@ -1,0 +1,3 @@
+rootProject.name = 'mtest'
+include ':data'
+include ':kernel'
