@@ -23,7 +23,52 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+
     repositories {
         mavenCentral()
     }
+
+    task kva(){
+        doFirst{
+            println "krya"
+        }
+    }
+
+//    build.doFirst {
+//        def fileName = "$project.projectDir" + File.separator + "modified"
+//        def stringsFile = new File(fileName)
+//        def dates = new Date().toString()
+//        def line = "$project.name $project.projectDir) - $dates"
+//        stringsFile.append(line)
+//    }
+
+    task jenkinsTest {
+        inputs.files test.outputs.files
+        doLast {
+            def timestamp = System.currentTimeMillis()
+            def testResults = project.test.getReports().getJunitXml().getDestination()
+            if (testResults.exists()) testResults.eachFile {
+                it.lastModified = timestamp
+            }
+        }
+    }
+
+    if (project.hasProperty('jenkins')) {
+        build.dependsOn(jenkinsTest)
+    }
+
+    test.onlyIf { !Boolean.getBoolean('skip.tests') }
+
+    task cleanFile {
+        doFirst {
+            def stringsFile = new File("$project.projectDir" + File.separator + "modified")
+            if (stringsFile.exists()) {
+                stringsFile.delete()
+            }
+            println "delete file"
+        }
+    }
+    compileJava.dependsOn cleanFile
+    build.dependsOn kva
 }
+

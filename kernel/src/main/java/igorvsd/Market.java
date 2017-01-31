@@ -6,6 +6,6 @@ import java.util.List;
 public class Market {
 
     public List<Fruit> availableFruits() {
-        return Arrays.asList(new Fruit("Apple"), new Fruit("Orange"));
+        return Arrays.asList(new Fruit("Apple2"), new Fruit("Orange"));
     }
 }
